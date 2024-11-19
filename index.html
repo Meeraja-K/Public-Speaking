@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StageCraft</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@v0.158.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@v0.158.0/examples/jsm/"
+      }
+    }
+  </script>
+
+  <script type="module" src="avatar.js"></script>
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar (20%) -->
+    <div class="sidebar">
+      <!-- Feedback Section -->
+      <div class="feedback-section">
+        <h2>Rate the Speaker</h2>
+        <div class="rating-category">
+          <p>Confidence:</p>
+          <div>
+            <button class="rating-btn" data-category="confidence" data-score="1">1</button>
+            <button class="rating-btn" data-category="confidence" data-score="2">2</button>
+            <button class="rating-btn" data-category="confidence" data-score="3">3</button>
+            <button class="rating-btn" data-category="confidence" data-score="4">4</button>
+            <button class="rating-btn" data-category="confidence" data-score="5">5</button>
+          </div>
+        </div>
+        <div class="rating-category">
+          <p>Fluency:</p>
+          <div>
+            <button class="rating-btn" data-category="fluency" data-score="1">1</button>
+            <button class="rating-btn" data-category="fluency" data-score="2">2</button>
+            <button class="rating-btn" data-category="fluency" data-score="3">3</button>
+            <button class="rating-btn" data-category="fluency" data-score="4">4</button>
+            <button class="rating-btn" data-category="fluency" data-score="5">5</button>
+          </div>
+        </div>
+        <div class="rating-category">
+          <p>Subject:</p>
+          <div>
+            <button class="rating-btn" data-category="subject" data-score="1">1</button>
+            <button class="rating-btn" data-category="subject" data-score="2">2</button>
+            <button class="rating-btn" data-category="subject" data-score="3">3</button>
+            <button class="rating-btn" data-category="subject" data-score="4">4</button>
+            <button class="rating-btn" data-category="subject" data-score="5">5</button>
+          </div>
+        </div>
+      </div>
+      <h2>-------------------</h2>
+      <!-- Graph Section -->
+      <div class="graph-section">
+        <h2>Feedback Summary</h2>
+        <canvas id="feedback-chart"></canvas>
+      </div>
+    </div>
+
+    <!-- Main Content (80%) -->
+    <div class="main-content">
+      <div id="avatar-container"></div>
+      <div id="avatar-loading">LOADING...</div>
+      <input type="file" id="audio-upload" accept="audio/*">
+      <button id="reset-button">Reset Position</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="feedback.js"></script>
+</body>
+</html>
