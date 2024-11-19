@@ -2,36 +2,38 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" /> <!-- Set the character encoding to UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Responsive design settings for mobile devices -->
   <title>StageCraft</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">  <!-- Link to the external CSS stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Preconnect to Google Fonts for faster loading -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Preconnect to Google Fonts' static resources -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" 
+    rel="stylesheet"> <!-- Load the Inter font family from Google Fonts -->
 
+  <!-- Import Three.js library and add ons -->
   <script type="importmap">
     {
       "imports": {
-        "three": "https://unpkg.com/three@v0.158.0/build/three.module.js",
+        "three": "https://unpkg.com/three@v0.158.0/build/three.module.js", 
         "three/addons/": "https://unpkg.com/three@v0.158.0/examples/jsm/"
       }
     }
   </script>
 
+  <!-- Load the avatar.js module for avatar functionality -->
   <script type="module" src="avatar.js"></script>
 </head>
 <body>
-  <div class="container">
+  <div class="container"> <!-- Main container for the sidebar and main content -->
     <!-- Sidebar (20%) -->
     <div class="sidebar">
       <!-- Feedback Section -->
-      <div class="feedback-section">
+      <div class="feedback-section"> <!-- Section for collecting feedback from users -->
         <h2>Rate the Speaker</h2>
-        <div class="rating-category">
+        <div class="rating-category"> <!-- Category for rating the speaker's confidence -->
           <p>Confidence:</p>
-          <div>
+          <div> <!-- Container for rating buttons for scores 1 to 5 -->
             <button class="rating-btn" data-category="confidence" data-score="1">1</button>
             <button class="rating-btn" data-category="confidence" data-score="2">2</button>
             <button class="rating-btn" data-category="confidence" data-score="3">3</button>
@@ -39,9 +41,9 @@
             <button class="rating-btn" data-category="confidence" data-score="5">5</button>
           </div>
         </div>
-        <div class="rating-category">
+        <div class="rating-category"> <!-- Category for rating the speaker's fluency -->
           <p>Fluency:</p>
-          <div>
+          <div> <!-- Container for rating buttons for scores 1 to 5 -->
             <button class="rating-btn" data-category="fluency" data-score="1">1</button>
             <button class="rating-btn" data-category="fluency" data-score="2">2</button>
             <button class="rating-btn" data-category="fluency" data-score="3">3</button>
@@ -49,9 +51,9 @@
             <button class="rating-btn" data-category="fluency" data-score="5">5</button>
           </div>
         </div>
-        <div class="rating-category">
+        <div class="rating-category"> <!-- Category for rating the subject matter -->
           <p>Subject:</p>
-          <div>
+          <div> <!-- Container for rating buttons for scores 1 to 5 -->
             <button class="rating-btn" data-category="subject" data-score="1">1</button>
             <button class="rating-btn" data-category="subject" data-score="2">2</button>
             <button class="rating-btn" data-category="subject" data-score="3">3</button>
@@ -60,24 +62,24 @@
           </div>
         </div>
       </div>
-      <h2>-------------------</h2>
+      <h2>-------------------</h2> <!-- Separator line in the sidebar -->
       <!-- Graph Section -->
-      <div class="graph-section">
+      <div class="graph-section"> <!-- Section for displaying feedback summary graph -->
         <h2>Feedback Summary</h2>
-        <canvas id="feedback-chart"></canvas>
+        <canvas id="feedback-chart"></canvas> <!-- Canvas element for rendering the feedback chart -->
       </div>
     </div>
 
     <!-- Main Content (80%) -->
     <div class="main-content">
-      <div id="avatar-container"></div>
+      <div id="avatar-container"></div> <!-- Container for the avatar display -->
       <div id="avatar-loading">LOADING...</div>
-      <input type="file" id="audio-upload" accept="audio/*">
+      <input type="file" id="audio-upload" accept="audio/*"> <!-- File input for uploading audio files -->
       <button id="reset-button">Reset Position</button>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script type="module" src="feedback.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Load Chart.js library for graphing -->
+  <script type="module" src="feedback.js"></script> <!-- Load feedback.js module for handling feedback functionality -->
 </body>
 </html>
