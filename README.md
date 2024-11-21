@@ -46,7 +46,10 @@ feedback.js
 
 
 Contributors: 
+
+Megha JS : 
     
-    Megha JS : https://github.com/megg003
-    Varsha JS : 
+    https://github.com/megg003
+    
+Varsha JS : 
 
