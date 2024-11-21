@@ -2,7 +2,7 @@ VR Public Speaking Tool: StageCraft
 
 StageCraft is a VR Public Speaking Practice Tool designed to enhance public speaking skills by simulating realistic environments like auditoriums and conference rooms. Users can participate as speakers or audience members, receiving real-time feedback and ratings to refine their skills. The project utilizes Three.js for 3D rendering and Node.js for backend functionality.
 
-Youtube link : https://youtu.be/2Joq2B4CEkM
+Youtube link : https://youtu.be/2Joq2B4CEkM<br />
 Website link: https://avatar-spectator.vercel.app/
 
 Website preview:
@@ -47,6 +47,6 @@ feedback.js
 
 Contributors: 
     
-    Megha JS ( https://github.com/megg003 )
-    Varsha JS (  )
+    Megha JS : [https://github.com/megg003 ](url)
+    Varsha JS : 
 
