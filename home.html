@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Meta tags for character set and viewport settings -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StageCraft</title>
+  
+  <!-- Link to the favicon (logo image) for the page -->
+  <link rel="icon" href="./logo.png" type="image/png" />
+  
+  <!-- Link to the external stylesheet (style.css) for page styling -->
+  <link rel="stylesheet" href="style.css" />
+  
+  <!-- Preconnect to external font services to optimize loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Link to external Google font (Inter) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;900&display=swap" rel="stylesheet">
+  
+  <!-- Script to import modules for Three.js from the CDN (unpkg) -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@v0.158.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@v0.158.0/examples/jsm/"
+      }
+    }
+  </script>
+  
+  <!-- Script to load the avatar functionality (avatar.js) -->
+  <script type="module" src="avatar.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Sidebar (taking up 20% of the screen) -->
+    <div class="sidebar">
+      
+      <!-- Participants Section -->
+      <div class="participants-section">
+        <h2>Participants</h2>
+        <!-- The list of participants' avatars will be displayed here -->
+        <div id="participants-list" class="participants-icons"></div>
+      </div>
+
+      <!-- Feedback Section -->
+      <div class="feedback-section">
+        <h2>Rate the Speaker</h2>
+        
+        <!-- Rating Categories for Confidence -->
+        <div class="rating-category">
+          <p>Confidence:</p>
+          <div>
+            <!-- Rating buttons for Confidence -->
+            <button class="rating-btn" data-category="confidence" data-score="1">1</button>
+            <button class="rating-btn" data-category="confidence" data-score="2">2</button>
+            <button class="rating-btn" data-category="confidence" data-score="3">3</button>
+            <button class="rating-btn" data-category="confidence" data-score="4">4</button>
+            <button class="rating-btn" data-category="confidence" data-score="5">5</button>
+          </div>
+        </div>
+
+        <!-- Rating Categories for Fluency -->
+        <div class="rating-category">
+          <p>Fluency:</p>
+          <div>
+            <!-- Rating buttons for Fluency -->
+            <button class="rating-btn" data-category="fluency" data-score="1">1</button>
+            <button class="rating-btn" data-category="fluency" data-score="2">2</button>
+            <button class="rating-btn" data-category="fluency" data-score="3">3</button>
+            <button class="rating-btn" data-category="fluency" data-score="4">4</button>
+            <button class="rating-btn" data-category="fluency" data-score="5">5</button>
+          </div>
+        </div>
+
+        <!-- Rating Categories for Subject -->
+        <div class="rating-category">
+          <p>Subject:</p>
+          <div>
+            <!-- Rating buttons for Subject -->
+            <button class="rating-btn" data-category="subject" data-score="1">1</button>
+            <button class="rating-btn" data-category="subject" data-score="2">2</button>
+            <button class="rating-btn" data-category="subject" data-score="3">3</button>
+            <button class="rating-btn" data-category="subject" data-score="4">4</button>
+            <button class="rating-btn" data-category="subject" data-score="5">5</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Graph Section for displaying feedback summary -->
+      <div class="graph-section">
+        <h2>Feedback Summary</h2>
+        <!-- Canvas element for the feedback chart -->
+        <canvas id="feedback-chart"></canvas>
+      </div>
+
+      <!-- Exit Room Section with the Exit button -->
+      <div class="exit-room-section">
+        <button id="exit-room-button" class="exit-room-btn">Exit Room</button>
+      </div>
+
+    </div>
+
+    <!-- Main Content (taking up 80% of the screen) -->
+    <div class="main-content">
+      <!-- The container for the avatar (loaded dynamically) -->
+      <div id="avatar-container"></div>
+      <!-- Loading indicator for the avatar -->
+      <div id="avatar-loading">LOADING...</div>
+      
+      <!-- File upload for audio -->
+      <input type="file" id="audio-upload" accept="audio/*">
+      
+      <!-- Button to reset the avatar's position -->
+      <button id="reset-button">Reset Position</button>
+    </div>
+  </div>
+
+  <!-- External JavaScript library for generating charts (Chart.js) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Scripts for handling feedback functionality, participants list, and avatar interaction -->
+  <script type="module" src="feedback.js"></script>
+  <script type="module" src="participants.js"></script>
+
+  <script>
+    // JavaScript to handle the Exit Room functionality
+    document.getElementById('exit-room-button').addEventListener('click', function() {
+      // Remove the spectator's name and avatar from session storage
+      sessionStorage.removeItem('spectatorName');
+      sessionStorage.removeItem('spectatorAvatar');
+      
+      // Redirect the user to the index page
+      window.location.href = 'index.html';
+    });
+  </script>
+
+  <style>
+    /* Global styles for the page */
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Container for the sidebar and main content */
+    .container {
+      display: flex;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Sidebar styling (left side of the page) */
+    .sidebar {
+      width: 20%;
+      background-color: #494646;
+      padding: 15px;
+      overflow-y: auto; /* Enable vertical scrolling */
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Main content styling (right side of the page) */
+    .main-content {
+      flex-grow: 1;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #393535; /* Background color for the main content */
+    }
+
+    /* Participant icons list styling */
+    .participants-icons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* Individual participant icon styling */
+    .participant-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid #ddd;
+      object-fit: cover;
+      cursor: pointer;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    /* Hover effect on participant icon */
+    .participant-icon:hover {
+      transform: scale(1.1);
+      border-color: #d03a3e;
+    }
+
+    /* Styling for rating categories */
+    .rating-category p {
+      margin: 5px 0;
+    }
+
+    /* Rating button styling */
+    .rating-btn {
+      background-color: #fa7b7b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      margin: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Hover effect on rating buttons */
+    .rating-btn:hover {
+      background-color: #a02c2f;
+    }
+
+    /* Styling for the chart canvas */
+    canvas {
+      width: 100%;
+      height: 200px;
+    }
+
+    /* Styling for the Exit Room button */
+    .exit-room-btn {
+      background-color: #fa7b7b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      margin-top: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Hover effect on the Exit Room button */
+    .exit-room-btn:hover {
+      background-color: #a02c2f;
+    }
+  </style>
+</body>
+
+</html>

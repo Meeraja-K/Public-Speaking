@@ -1,85 +1,248 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
+<!-- Declare the document type and language -->
 <head>
-  <meta charset="UTF-8" /> <!-- Set the character encoding to UTF-8 -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Responsive design settings for mobile devices -->
+  <meta charset="UTF-8" />
+  <!-- Set the character encoding to UTF-8 for better compatibility -->
   <title>StageCraft</title>
-  <link rel="stylesheet" href="style.css">  <!-- Link to the external CSS stylesheet -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Preconnect to Google Fonts for faster loading -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Preconnect to Google Fonts' static resources -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" 
-    rel="stylesheet"> <!-- Load the Inter font family from Google Fonts -->
-
-  <!-- Import Three.js library and add ons -->
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://unpkg.com/three@v0.158.0/build/three.module.js", 
-        "three/addons/": "https://unpkg.com/three@v0.158.0/examples/jsm/"
-      }
+  <!-- Title of the webpage, shown in the browser tab -->
+  <link rel="icon" href="./logo.png" type="image/png" />
+  <!-- Set the icon for the webpage -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Set the viewport for responsive design -->
+  
+  <style>
+    /* Global styles for the page */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
     }
-  </script>
 
-  <!-- Load the avatar.js module for avatar functionality -->
-  <script type="module" src="avatar.js"></script>
+    /* Navbar styles */
+    .logo-bar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-sizing: border-box;
+    }
+    .logo-bar img {
+      height: 50px;
+    }
+    .logo-bar h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    .quick-access a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      transition: background-color 0.3s;
+    }
+    .quick-access a:hover {
+      background-color: #d03a3e;
+    }
+
+    /* Background slide styles */
+    .slide {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      text-align: left;
+    }
+
+    /* Homepage content styling */
+    .homescreen {
+      position: absolute;
+      top: 20%;
+      left: 5%;
+      right: 50%;
+      color: white;
+      max-width: 50%;
+    }
+    .homescreen h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+    .homescreen p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    .btn {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #d03a3e;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #b30009;
+    }
+
+    /* Spectator Dialog styles */
+    #spectator-dialog {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+    }
+    #spectator-dialog .dialog-content {
+      background: rgb(133, 204, 246);
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      margin: auto;
+      position: relative;
+      top: 20%;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(13, 1, 46, 0.2);
+    }
+    .avatar-option {
+      width: 70px;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+    .avatar-option:hover {
+      border: 2px solid #b30009;
+    }
+
+    /* Input field styles */
+    input[type="text"] {
+      margin-bottom: 15px;
+      padding: 5px;
+      width: 100%;
+      background-color: #f4cbeb;
+      border: 1px solid #08484b;
+      color: #333;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
-  <div class="container"> <!-- Main container for the sidebar and main content -->
-    <!-- Sidebar (20%) -->
-    <div class="sidebar">
-      <!-- Feedback Section -->
-      <div class="feedback-section"> <!-- Section for collecting feedback from users -->
-        <h2>Rate the Speaker</h2>
-        <div class="rating-category"> <!-- Category for rating the speaker's confidence -->
-          <p>Confidence:</p>
-          <div> <!-- Container for rating buttons for scores 1 to 5 -->
-            <button class="rating-btn" data-category="confidence" data-score="1">1</button>
-            <button class="rating-btn" data-category="confidence" data-score="2">2</button>
-            <button class="rating-btn" data-category="confidence" data-score="3">3</button>
-            <button class="rating-btn" data-category="confidence" data-score="4">4</button>
-            <button class="rating-btn" data-category="confidence" data-score="5">5</button>
-          </div>
-        </div>
-        <div class="rating-category"> <!-- Category for rating the speaker's fluency -->
-          <p>Fluency:</p>
-          <div> <!-- Container for rating buttons for scores 1 to 5 -->
-            <button class="rating-btn" data-category="fluency" data-score="1">1</button>
-            <button class="rating-btn" data-category="fluency" data-score="2">2</button>
-            <button class="rating-btn" data-category="fluency" data-score="3">3</button>
-            <button class="rating-btn" data-category="fluency" data-score="4">4</button>
-            <button class="rating-btn" data-category="fluency" data-score="5">5</button>
-          </div>
-        </div>
-        <div class="rating-category"> <!-- Category for rating the subject matter -->
-          <p>Subject:</p>
-          <div> <!-- Container for rating buttons for scores 1 to 5 -->
-            <button class="rating-btn" data-category="subject" data-score="1">1</button>
-            <button class="rating-btn" data-category="subject" data-score="2">2</button>
-            <button class="rating-btn" data-category="subject" data-score="3">3</button>
-            <button class="rating-btn" data-category="subject" data-score="4">4</button>
-            <button class="rating-btn" data-category="subject" data-score="5">5</button>
-          </div>
-        </div>
-      </div>
-      <h2>-------------------</h2> <!-- Separator line in the sidebar -->
-      <!-- Graph Section -->
-      <div class="graph-section"> <!-- Section for displaying feedback summary graph -->
-        <h2>Feedback Summary</h2>
-        <canvas id="feedback-chart"></canvas> <!-- Canvas element for rendering the feedback chart -->
-      </div>
-    </div>
 
-    <!-- Main Content (80%) -->
-    <div class="main-content">
-      <div id="avatar-container"></div> <!-- Container for the avatar display -->
-      <div id="avatar-loading">LOADING...</div>
-      <input type="file" id="audio-upload" accept="audio/*"> <!-- File input for uploading audio files -->
-      <button id="reset-button">Reset Position</button>
+  <!-- Navbar Section -->
+  <div class="logo-bar">
+    <img src="./logo.png" alt="StageCraft Logo" />
+    <h1>StageCraft</h1>
+    <div class="quick-access">
+      <!-- Navbar Links -->
+      <a href="#">Home</a>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Load Chart.js library for graphing -->
-  <script type="module" src="feedback.js"></script> <!-- Load feedback.js module for handling feedback functionality -->
+  <!-- Homepage Slide Section -->
+  <div class="slide" style="background-image: url('./homescreen.jpg');">
+    <div class="homescreen">
+      <h2>Welcome to StageCraft: Elevate Your Public Speaking Skills</h2>
+      <p>At StageCraft, enhance your public speaking skills in an immersive VR environment. Whether you're a speaker looking to practice or an audience member offering real-time feedback, our platform creates a realistic stage experience. Speakers receive instant ratings and feedback from the audience, helping them refine their performance with every session. Join StageCraft today and master the art of captivating your audience!</p>
+      <!-- Join as Speaker Button -->
+      <button class="btn" onclick="joinAsSpeaker()">Join as Speaker</button>
+      <!-- Join as Spectator Button -->
+      <button class="btn" onclick="openSpectatorDialog()">Join as Spectator</button>
+    </div>
+  </div>
+
+  <!-- Spectator Dialog Section -->
+  <div id="spectator-dialog">
+    <div class="dialog-content">
+      <h3>Join as Spectator</h3>
+      <label for="spectator-name">Your Name:</label><br />
+      <input type="text" id="spectator-name" placeholder="Enter your name" /><br />
+      <p>Choose Your Avatar:</p>
+      <div style="display: flex; justify-content: space-between;">
+        <!-- Avatar Options -->
+        <img src="./male.jpg" alt="Avatar 1" class="avatar-option" onclick="selectAvatar('./male.jpg')" />
+        <img src="./female.jpg" alt="Avatar 2" class="avatar-option" onclick="selectAvatar('./female.jpg')" />
+        <img src="./profile.jpg" alt="Avatar 3" class="avatar-option" onclick="selectAvatar('./profile.jpg')" />
+      </div>
+      <br />
+      <!-- Submit Button -->
+      <button class="btn" onclick="submitSpectatorDetails()">Submit</button>
+      <!-- Cancel Button -->
+      <button class="btn" onclick="closeSpectatorDialog()" style="background-color: gray;">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+    let selectedAvatar = null;
+
+    function joinAsSpeaker() {
+      // Redirect to a different page for speakers
+      window.location.href = "home.html";
+    }
+
+    function openSpectatorDialog() {
+      // Show the spectator dialog
+      document.getElementById("spectator-dialog").style.display = "block";
+    }
+
+    function closeSpectatorDialog() {
+      // Reset inputs and close the dialog
+      const nameInput = document.getElementById("spectator-name");
+      nameInput.value = ''; // Clear the name input field
+      selectedAvatar = null; // Reset the selected avatar
+      document.querySelectorAll(".avatar-option").forEach(img => {
+        img.style.border = "2px solid transparent";
+      });
+      document.getElementById("spectator-dialog").style.display = "none";
+    }
+
+    function selectAvatar(avatar) {
+      // Set the selected avatar and highlight the option
+      document.querySelectorAll(".avatar-option").forEach(img => {
+        img.style.border = "2px solid transparent";
+      });
+      const selectedImg = document.querySelector(`img[src="${avatar}"]`);
+      if (selectedImg) {
+        selectedImg.style.border = "2px solid #d03a3e";
+      }
+      selectedAvatar = avatar;
+    }
+
+    function submitSpectatorDetails() {
+      // Submit spectator details after validation
+      const nameInput = document.getElementById("spectator-name");
+      const name = nameInput.value;
+
+      if (!name) {
+        alert("Please enter your name.");
+        return;
+      }
+
+      if (!selectedAvatar) {
+        alert("Please select an avatar.");
+        return;
+      }
+
+      // Store spectator data in sessionStorage
+      const participant = { name, avatar: selectedAvatar };
+      sessionStorage.setItem("spectatorName", name);
+      sessionStorage.setItem("spectatorAvatar", selectedAvatar);
+
+      closeSpectatorDialog();
+      setTimeout(() => {
+        window.location.href = "home.html"; // Redirect to home page after a short delay
+      }, 500);
+    }
+  </script>
+
 </body>
 </html>
